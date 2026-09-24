@@ -1,12 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
-import category from '../data/category.js'
+import {category} from '../data/category.js'
 const options=["animescenery"]
 const ImagesShowCase = () => {
     const [active, setActive] = useState("");
     const [backgroundImage, setBackgroundImage] = useState();
     // chrome main background
     const [selectedImage, setSelectedImage] = useState();
+    const images=category[active] ||[]
   return (
     <div>
        <div className='h-screen w-screen flex gap-2'>
@@ -27,13 +28,15 @@ const ImagesShowCase = () => {
             ))}
         </div> */}
         {/* when filter is used */}
-        <div className='overflow-scroll'>
-            {imageNumber.map((items)=>(
-                <button key={items} onClick={()=>setSelectedImage(items)} className=''>
-                    <img src={`../assets/${active}/${items}.jpg`} alt="image" />
-                    </button>
+    
+        <div className='overflow-scroll grid grid-cols-2 gap-2'>
+            {images.map((items)=>(
+                <button key={items} onClick={()=>setSelectedImage(items)} className="w-48 h-32 overflow-hidden rounded-lg gap-3 bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url(${items})`}}
+                ></button>
             ))}
         </div>
+    
     </div>
   )
 }
